@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const DashboardPlugin = require('webpack-dashboard/plugin')
 
 module.exports = {
 	module : {
@@ -22,6 +23,7 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: "./src/index.html",
 			filename: "./index.html"
-		})
+		}),
+		new DashboardPlugin()
 	]
 }
