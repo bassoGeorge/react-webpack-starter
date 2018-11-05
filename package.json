@@ -7,7 +7,8 @@
     "build": "webpack --mode production",
     "start": "webpack-dev-server --open --mode development",
     "test": "mocha --opts ./test/unit/mocha.opts --recursive $(find ./test/unit -name '*.spec.js')",
-    "dash": "webpack-dashboard -- npm start"
+    "dash": "webpack-dashboard -- npm start",
+    "e2e": "cypress open"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,7 @@
     "@types/chai": "^4.1.7",
     "babel-loader": "^8.0.4",
     "chai": "^4.2.0",
+    "cypress": "^3.1.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
     "html-loader": "^0.5.5",
