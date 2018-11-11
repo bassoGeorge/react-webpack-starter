@@ -1,29 +1,30 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin")
-const DashboardPlugin = require('webpack-dashboard/plugin')
+const merge = require('webpack-merge')
+const parts = require('./build-config/webpack.parts')
 
-module.exports = {
-	module : {
-		rules: [
-			{
-				test   : /\.js$/,
-				exclude: /node_modules/,
-				use    : {
-					loader: "babel-loader"
-				}
-			},
-			{
-				test: /\.html$/,
-				use : [{
-					loader: 'html-loader'
-				}]
-			}
-		]
-	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			template: "./src/index.html",
-			filename: "./index.html"
-		}),
-		new DashboardPlugin()
-	]
-}
+const commonConfig = merge([
+	parts.loadJS({exclude: /node_modules/}),
+	parts.loadHTML({template: "./src/index.html"}),
+])
+
+const productionConfig  = merge([
+	parts.extractCSS(),
+	parts.extractSASS()
+])
+
+const developmentConfig = merge([
+	parts.devServer({
+		// Customize host/port here if needed
+		host: process.env.HOST,
+		port: process.env.PORT,
+	}),
+	parts.loadCSS(),
+	parts.loadSASS()
+])
+
+module.exports = mode => {
+	if (mode === "production") {
+		return merge(commonConfig, productionConfig, {mode});
+	}
+
+	return merge(commonConfig, developmentConfig, {mode});
+};
