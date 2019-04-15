@@ -14,7 +14,7 @@ module.exports = ({mode}) => {
 
 		additionalConfig = {
 			plugins: [new MiniCssExtractPlugin({
-				filename: "[name].css",
+				filename: "[name]-[chunkhash].css",
 			})]
 		}
 

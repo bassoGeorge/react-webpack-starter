@@ -1,4 +1,4 @@
-module.exports = env => ({
+module.exports = ({mode}) => ({
 	module: {
 		rules: [
 			{
@@ -9,5 +9,10 @@ module.exports = env => ({
 				}]
 			}
 		]
+	},
+	output: {
+		filename: mode === 'production'
+			? "[name]-[chunkhash].js"
+			: "[name].js"
 	}
 })
