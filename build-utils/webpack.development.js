@@ -1,14 +1,14 @@
-const parts = require('./webpack.parts')
-const merge = require('webpack-merge')
+const DashboardPlugin = require('webpack-dashboard/plugin')
 
-module.exports = env => {
-	return merge([
-		parts.devServer({
-			// Customize host/port here if needed
-			host: process.env.HOST,
-			port: process.env.PORT,
-		}),
-		parts.loadCSS(),
-		parts.loadSASS()
-	])
-}
+module.exports = env => ({
+	devServer: {
+		stats  : "errors-only",
+		host   : process.env.HOST, // Defaults to `localhost`
+		port   : process.env.PORT, // Defaults to 8080
+		open   : true,
+		overlay: true,
+	},
+	plugins  : [
+		new DashboardPlugin()
+	]
+})

@@ -1,18 +1,24 @@
 const merge = require('webpack-merge')
-const parts = require('./build-utils/webpack.parts')
 
 const loadModeConfig = env => require(`./build-utils/webpack.${env.mode}`)(env)
+const loadPresets    = require('./build-utils/load-presets')
 
-const commonConfig = merge([
-	parts.loadJS({exclude: /node_modules/}),
-	parts.loadHTML({template: "./src/index.html"}),
-])
+module.exports = ({mode = 'production', presets = ["css"], ...rest}) => {
 
-module.exports = ({ mode = 'production', presets = [], ...rest }) => {
-	const envWithDefaults = { mode, presets, ...rest }
+	const corePresets = [
+		"html",
+		"es6",
+		"sass"
+	]
+
+	const env = {
+		mode,
+		presets: [...corePresets, ...presets],
+		...rest
+	}
 
 	return merge(
-		commonConfig,
-		loadModeConfig(envWithDefaults)
+		loadModeConfig(env),
+		loadPresets(env)
 	)
 }
