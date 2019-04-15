@@ -4,10 +4,19 @@
   "description": "Basic boostrap of react with webpack 4 and babel 7",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --env.mode production",
-    "start": "webpack-dev-server --open --env.mode development",
+    "webpack": "webpack",
+    "webpack-dev-server": "webpack-dev-server",
+    "debug": "node --inspect --inspect-brk ./node_modules/webpack/bin/webpack.js",
+
+    "prod": "npm run webpack -- --env.mode production",
+    "dev": "npm run webpack-dev-server -- --env.mode development --hot --open",
+    "prod:debug": "npm run debug -- --env.mode production",
+    "dev:debug": "npm run debug -- --env.mode development",
+
+    "start": "npm run dev",
+
+    "dash": "webpack-dashboard -- npm run dev",
     "test": "mocha --opts ./test/unit/mocha.opts --recursive $(find ./test/unit -name '*.spec.js')",
-    "dash": "webpack-dashboard -- npm start",
     "e2e": "cypress open"
   },
   "author": "anishgeorgehb@gmail.com",
